@@ -1,30 +1,30 @@
 import { Header } from "./components/Header";
 import { Assignments } from "./components/Assignments";
 import { useState } from "react";
-
-
+import { TAssignment } from "./types";
 
 function App() {
-  const [textBox, setTextBox] = useState("");
-  const [assignmentCount, setAssignmentCount] = useState(1);
-  const [assignmentList, setAssignmentList] = useState({
-    assignmentTitle: "Example Assignment",
-    created: 1,
-    completed: 0
-  });
-
+  const [assignmentCount, setAssignmentCount] = useState<number>(1);
+  // need to create an array with object inside in order to add more assignments to the end of the array
+  const [assignmentList, setAssignmentList] = useState<TAssignment[]>([
+    { id: crypto.randomUUID(), title: "Example assignment", completed: 0}
+  ]);
+  
+  // note: setter function "setAssignmentList" needs an assignment when it gets passed to < Header />
   return (
     <>
       <Header 
-        textBox={textBox}
-        setTextBox={setTextBox}
         assignmentCount={assignmentCount}
         setAssignmentCount={setAssignmentCount}
-        assignmentList={assignmentList}
         setAssignmentList={setAssignmentList}
       />
 
-      <Assignments assignmentCount={assignmentCount} assignmentList={assignmentList}/>
+      <Assignments 
+        assignmentCount={assignmentCount} 
+        setAssignmentCount={setAssignmentCount} 
+        assignmentList={assignmentList}
+        setAssignmentList={setAssignmentList}
+      />
     </>
   );
 }

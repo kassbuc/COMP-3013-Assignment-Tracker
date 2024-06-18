@@ -1,7 +1,17 @@
+import { TAssignment } from "../../types";
 import { Assignment } from "../Assignment";
 import styles from "./assignments.module.css";
+import { useState } from "react";
 
-export function Assignments( {assignmentCount, assignmentList} ) {
+type Props = {
+  assignmentCount: number,
+  assignmentList: TAssignment[] | []
+  setAssignmentCount: React.Dispatch<React.SetStateAction<number>>
+  setAssignmentList: React.Dispatch<React.SetStateAction<TAssignment[]>>
+}
+
+export function Assignments( {assignmentCount, assignmentList, setAssignmentCount, setAssignmentList}: Props ) {
+  let [completed, setCompleted] = useState<number>(0);
 
   return (
     <section className={styles.assignments}>
@@ -13,12 +23,23 @@ export function Assignments( {assignmentCount, assignmentList} ) {
 
         <div>
           <p className={styles.textPurple}>Completed Assignments</p>
-          <span>0 of {assignmentCount}</span>
+          <span>{completed} of {assignmentCount}</span>
         </div>
       </header>
 
       <div className={styles.list}>
-        < Assignment assignmentTitle={assignmentList.assignmentTitle}/>
+        {
+          assignmentList.map( (assignment) => 
+            < Assignment 
+              key={assignment.id} 
+              assignment={assignment} 
+              setCompleted={setCompleted} 
+              setAssignmentCount={setAssignmentCount} 
+              setAssignmentList={setAssignmentList}
+              assignmentList={assignmentList}
+            />
+          )
+        }
       </div>
     </section>
   );
