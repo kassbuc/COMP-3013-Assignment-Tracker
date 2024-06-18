@@ -5,7 +5,7 @@ import { TAssignment } from "../../types";
 import { FaCheckCircle } from "react-icons/fa";
 
 type Props = {
-  assignment: any //how do we type this????
+  assignment: any, //how do we type this????
   setCompleted: React.Dispatch<React.SetStateAction<number>>, 
   setAssignmentCount: React.Dispatch<React.SetStateAction<number>>, 
   setAssignmentList: React.Dispatch<React.SetStateAction<TAssignment[]>>, 
